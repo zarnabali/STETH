@@ -1,6 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import back1 from '../../../assets/back1.jpeg';
+import back2 from '../../../assets/back2.jpeg';
+import back3 from '../../../assets/back3.jpeg';
+import back4 from '../../../assets/back4.jpeg';
+import finalBack from '../../../assets/final_back.jpg';
 
 // Register ScrollTrigger with GSAP
 gsap.registerPlugin(ScrollTrigger);
@@ -89,13 +94,13 @@ const Hero = () => {
           {/* Mobile Image */}
           <img 
             ref={imageRef}
-            src="/src/assets/back3.jpeg" 
+            src={back3} 
             alt="Medical professionals in scrubs" 
             className="md:hidden w-full h-full object-cover object-center"
           />
           {/* Desktop Image */}
           <img 
-            src="/src/assets/final_back.jpg" 
+            src={finalBack} 
             alt="Medical professionals in scrubs" 
             className="hidden md:block w-full h-full object-cover object-center"
           />

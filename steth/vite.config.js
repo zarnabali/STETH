@@ -1,17 +1,23 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  server: {
-    port: 5173,
-    strictPort: true,
-    host: true,
-    hmr: {
-      port: 5173,
-      protocol: 'ws',
-      host: 'localhost',
-    },
+  base: '/',
+  build: {
+    assetsDir: 'assets',
+    rollupOptions: {
+      output: {
+        assetFileNames: 'assets/[name].[hash][extname]'
+      }
+    }
   },
+  server: {
+    port: 3000,
+    strictPort: true,
+    hmr: {
+      overlay: false
+    }
+  }
 })

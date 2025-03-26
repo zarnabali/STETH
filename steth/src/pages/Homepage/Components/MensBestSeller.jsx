@@ -9,6 +9,17 @@ import 'swiper/css';
 import 'swiper/css/free-mode';
 import 'swiper/css/mousewheel';
 
+// Import product images
+import product1Img1 from '../../../assets/product/product1_img1.png';
+import product1Img2 from '../../../assets/product/product1_img2.png';
+import product2Img1 from '../../../assets/product/product2_img1.png';
+import product2Img2 from '../../../assets/product/product2_img2.png';
+import product3Img1 from '../../../assets/product/product3_img1.png';
+import product3Img2 from '../../../assets/product/product3_img2.png';
+import product4Img1 from '../../../assets/product/product4_img1.png';
+import product4Img2 from '../../../assets/product/product4_img2.png';
+import product5Img1 from '../../../assets/product/product5_img1.png';
+
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,8 +29,8 @@ const bestSellingProducts = [
     id: 1,
     name: 'High Waisted Isabel Wide Leg Scrub Pants',
     price: 58.00,
-    image1: '/src/assets/product/product1_img1.png',
-    image2: '/src/assets/product/product1_img2.png',
+    image1: product1Img1,
+    image2: product1Img2,
     colors: ['purple', 'blue', 'black', 'gray'],
     isNew: true
   },
@@ -27,8 +38,8 @@ const bestSellingProducts = [
     id: 2,
     name: 'Catarina One-Pocket Scrub Top™',
     price: 38.00,
-    image1: '/src/assets/product/product2_img1.png',
-    image2: '/src/assets/product/product2_img2.png',
+    image1: product2Img1,
+    image2: product2Img2,
     colors: ['mint', 'gray', 'blue', 'black'],
     isNew: false
   },
@@ -36,8 +47,8 @@ const bestSellingProducts = [
     id: 3,
     name: 'High Waisted Isabel Wide Leg Scrub Pants',
     price: 58.00,
-    image1: '/src/assets/product/product3_img1.png',
-    image2: '/src/assets/product/product3_img2.png',
+    image1: product3Img1,
+    image2: product3Img2,
     colors: ['blue', 'purple', 'black', 'gray'],
     isNew: true
   },
@@ -45,8 +56,8 @@ const bestSellingProducts = [
     id: 4,
     name: 'Rafaela Oversized Scrub Top™',
     price: 38.00,
-    image1: '/src/assets/product/product4_img1.png',
-    image2: '/src/assets/product/product4_img2.png',
+    image1: product4Img1,
+    image2: product4Img2,
     colors: ['purple', 'blue', 'black', 'gray'],
     isNew: false
   },
@@ -54,8 +65,8 @@ const bestSellingProducts = [
     id: 5,
     name: 'Catarina One-Pocket Scrub Top™',
     price: 38.00,
-    image1: '/src/assets/product/product5_img1.png',
-    image2: '/src/assets/product/product5_img1.png',
+    image1: product5Img1,
+    image2: product5Img1,
     colors: ['mint', 'gray', 'blue', 'black'],
     isNew: false
   },
@@ -63,8 +74,8 @@ const bestSellingProducts = [
     id: 6,
     name: 'High Waisted Isabel Wide Leg Scrub Pants',
     price: 58.00,
-    image1: '/src/assets/product/product1_img1.png',
-    image2: '/src/assets/product/product1_img2.png',
+    image1: product1Img1,
+    image2: product1Img2,
     colors: ['purple', 'blue', 'black', 'gray'],
     isNew: true
   },
@@ -72,8 +83,8 @@ const bestSellingProducts = [
     id: 7,
     name: 'Catarina One-Pocket Scrub Top™',
     price: 38.00,
-    image1: '/src/assets/product/product2_img1.png',
-    image2: '/src/assets/product/product2_img2.png',
+    image1: product2Img1,
+    image2: product2Img2,
     colors: ['mint', 'gray', 'blue', 'black'],
     isNew: false
   },
@@ -81,8 +92,8 @@ const bestSellingProducts = [
     id: 8,
     name: 'High Waisted Isabel Wide Leg Scrub Pants',
     price: 58.00,
-    image1: '/src/assets/product/product3_img1.png',
-    image2: '/src/assets/product/product3_img2.png',
+    image1: product3Img1,
+    image2: product3Img2,
     colors: ['blue', 'purple', 'black', 'gray'],
     isNew: true
   }

@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
+import logo from '../../../assets/logo.png';
 
 const Header = ({ className = '' }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -107,10 +108,10 @@ const Header = ({ className = '' }) => {
   return (
     <header ref={headerRef} className={`w-full z-50 ${className}`}>
       {/* Desktop Header */}
-      <div className="hidden md:flex items-center justify-between px-6 py-4 border-b bg-white shadow-md px-10">
+      <div className="hidden md:flex items-center justify-between  py-4 border-b bg-white shadow-md px-10">
         <div className="flex items-center space-x-8">
           <a href="/" className="flex items-center" ref={logoRef}>
-            <img src="/src/assets/logo.png" alt="FIGS Logo" className="w-30  h-20 ml-10" />
+            <img src={logo} alt="STETH Logo" className="h-20 w-auto ml-10" />
           </a>
         </div>
         
@@ -172,7 +173,7 @@ const Header = ({ className = '' }) => {
         </button>
         
         <a href="/" className="flex items-center">
-          <img src="/src/assets/logo.png" alt="FIGS Logo" className="h-12" />
+          <img src={logo} alt="STETH Logo" className="h-12" />
         </a>
         
         <div className="flex items-center space-x-3">
