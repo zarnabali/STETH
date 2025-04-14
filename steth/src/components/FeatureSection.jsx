@@ -3,9 +3,9 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Local icon imports
-import FreeShippingIcon from '../../../assets/icons/2.png';
-import Support247Icon from '../../../assets/icons/1.png';
-import MoneyReturnIcon from '../../../assets/icons/3.png';
+import FreeShippingIcon from '../assets/icons/2.png';
+import Support247Icon from '../assets/icons/1.png';
+import MoneyReturnIcon from '../assets/icons/3.png';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);

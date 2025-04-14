@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import back3 from '../../../assets/back3.jpeg';
-import finalBack from '../../../assets/final_back.jpg';
+import back3 from '../../../assets/product/hero_mob.jpeg';
+import finalBack from '../../../assets/product/hero_web.png';
 
 // Register ScrollTrigger with GSAP
 gsap.registerPlugin(ScrollTrigger);
@@ -101,10 +101,12 @@ const Hero = () => {
             alt="Medical professionals in scrubs" 
             className="hidden md:block w-full h-full object-cover object-center"
           />
-          {/* Enhanced gradient overlay for better text visibility */}
-          <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50"></div>
-          {/* Additional shadow overlay */}
-          <div className="absolute inset-0 shadow-inner-2xl bg-black/20"></div>
+          
+          {/* Bottom shadow gradient overlay */}
+          <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-black/70 to-transparent"></div>
+          
+          {/* Additional subtle vignette effect around the edges */}
+          <div className="absolute inset-0 shadow-inner bg-gradient-to-b from-transparent via-transparent to-black/30"></div>
         </div>
       </div>
       
@@ -112,13 +114,18 @@ const Hero = () => {
       <div className="relative h-full flex flex-col items-center justify-center text-center px-4">
         <div 
           ref={contentRef} 
-          className=" py-6 sm:py-8 md:py-12 px-4 sm:px-6 md:px-8 rounded-2xl max-w-3xl mx-auto transform hover:scale-105 transition-transform duration-300"
+          className="py-6 sm:py-8 md:py-12 px-4 sm:px-6 md:px-8 rounded-2xl max-w-3xl mx-auto transform hover:scale-105 transition-transform duration-300"
         >
           <h1 
             ref={headingRef} 
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white drop-shadow-lg"
+          >
+            STETH WOMEN'S
+          </h1>
+          <h1 
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 text-white drop-shadow-lg"
           >
-            THE SET
+            COLLECTION
           </h1>
           <p 
             ref={descRef} 
@@ -131,40 +138,10 @@ const Hero = () => {
             ref={buttonsRef} 
             className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-2 sm:px-4"
           >
-            <a 
-              href="/women" 
-              className="group relative px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-black text-white text-sm sm:text-base font-medium uppercase tracking-wide rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl shadow-lg"
-              onMouseEnter={(e) => {
-                gsap.to(e.target, {
-                  scale: 1.05,
-                  duration: 0.3,
-                  ease: "power2.out"
-                });
-                gsap.to(e.target.querySelector('.button-shine'), {
-                  x: '100%',
-                  duration: 0.6,
-                  ease: "power2.inOut"
-                });
-              }}
-              onMouseLeave={(e) => {
-                gsap.to(e.target, {
-                  scale: 1,
-                  duration: 0.3,
-                  ease: "power2.out"
-                });
-                gsap.to(e.target.querySelector('.button-shine'), {
-                  x: '-100%',
-                  duration: 0.6,
-                  ease: "power2.inOut"
-                });
-              }}
-            >
-              <span className="relative z-10">Shop Women</span>
-              <div className="button-shine absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full"></div>
-            </a>
+           
             <a 
               href="/men" 
-              className="group relative px-4 sm:px-6 md:px-8 py-3 sm:py-4 bg-white text-black text-sm sm:text-base font-medium uppercase tracking-wide rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl shadow-lg border-2 border-black"
+              className="group relative sm:px-6 md:px-8 py-3 sm:py-4 bg-white text-white text-sm sm:text-base font-medium uppercase tracking-wide rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl shadow-lg border-2 border-black"
               onMouseEnter={(e) => {
                 gsap.to(e.target, {
                   scale: 1.05,
@@ -190,7 +167,7 @@ const Hero = () => {
                 });
               }}
             >
-              <span className="relative z-10">Shop Men</span>
+              <span className="relative z-10 text-black">Shop Women</span>
               <div className="button-shine absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent -translate-x-full"></div>
             </a>
           </div>

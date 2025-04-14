@@ -1,17 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import Header from '../../components/Header';
-import Hero from './Components/Hero';
-import BestSellers from './Components/WomenBestSellers';
-
-import FeatureSection from '../../components/FeatureSection';
-import MensBestSellers from './Components/MensBestSeller';
-import RewardsCTA from '../../components/DiscountOffers';
-import NewsletterSignup from '../../components/ContactUs';
+import ProductDetail from './Components/DetailSection';
+import MenBestSellers from '../Menspage/Components/MensBestSeller';
+import ProductReviews from './Components/ReviewsSection';
 import AwsomeHumansFooter from '../../components/Footer';
-const Homepage = ({ children }) => {
-  // Add fonts and styles directly without API calls
+
+const ProductDetailPage = ({ children }) => {
+  const { productId } = useParams(); // Get the product ID from the URL
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
-    // Add local styles to fix layout issues and add fonts
+    // Add font styles
     const style = document.createElement('style');
     style.textContent = `
       @font-face {
@@ -68,24 +69,52 @@ const Homepage = ({ children }) => {
     `;
     document.head.appendChild(style);
     
+    // Fetch product data based on productId
+    const fetchProductData = async () => {
+      try {
+        // Replace with your actual data fetching logic
+        // const response = await fetch(`/api/products/${productId}`);
+        // const data = await response.json();
+        // setProduct(data);
+        
+        // Simulating product data for now
+        setProduct({
+          id: productId,
+          name: `Product ${productId}`,
+          // other product details
+        });
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchProductData();
+    
     return () => {
       document.head.removeChild(style);
     };
-  }, []);
+  }, [productId]); // Re-fetch when productId changes
 
   return (
-    <div className="font-poppins min-h-screen flex flex-col w-full bg-white">
+    <div className="font-poppins min-h-screen flex flex-col bg-white">
       <Header />
-      <Hero />
-      <FeatureSection />
-      <BestSellers />
-      <MensBestSellers />
-      <RewardsCTA />
-      <NewsletterSignup />
+      {loading ? (
+        <div className="flex-grow flex items-center justify-center">
+          <p>Loading product details...</p>
+        </div>
+      ) : (
+        <>
+          <ProductDetail product={product} />
+          <MenBestSellers />
+          <ProductReviews productId={productId} />
+          <main className="flex-grow">{children}</main>
+        </>
+      )}
       <AwsomeHumansFooter />
-      <main className="flex-grow">{children}</main>
     </div>
   );
 };
 
-export default Homepage;
+export default ProductDetailPage;

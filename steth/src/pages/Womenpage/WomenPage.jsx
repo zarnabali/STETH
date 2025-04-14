@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import Hero from './Components/Hero';
-import BestSellers from './Components/WomenBestSellers';
 
-import FeatureSection from '../../components/FeatureSection';
-import MensBestSellers from './Components/MensBestSeller';
+import WomenBestSellers from './Components/WomenBestSellers';
+import ProductPage from './Components/Products';
 import RewardsCTA from '../../components/DiscountOffers';
 import NewsletterSignup from '../../components/ContactUs';
 import AwsomeHumansFooter from '../../components/Footer';
-const Homepage = ({ children }) => {
+
+
+
+
+
+const WomenPage = ({ children }) => {
   // Add fonts and styles directly without API calls
   useEffect(() => {
     // Add local styles to fix layout issues and add fonts
@@ -77,9 +81,8 @@ const Homepage = ({ children }) => {
     <div className="font-poppins min-h-screen flex flex-col w-full bg-white">
       <Header />
       <Hero />
-      <FeatureSection />
-      <BestSellers />
-      <MensBestSellers />
+      <WomenBestSellers />
+      <ProductPage />
       <RewardsCTA />
       <NewsletterSignup />
       <AwsomeHumansFooter />
@@ -88,4 +91,4 @@ const Homepage = ({ children }) => {
   );
 };
 
-export default Homepage;
+export default WomenPage;
