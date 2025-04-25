@@ -77,10 +77,11 @@ const Homepage = ({ children }) => {
     <div className="font-poppins min-h-screen flex flex-col w-full bg-white">
       <Header />
       <Hero />
-      <FeatureSection />
+      
       <BestSellers />
       <MensBestSellers />
       <RewardsCTA />
+      <FeatureSection />
       <NewsletterSignup />
       <AwsomeHumansFooter />
       <main className="flex-grow">{children}</main>

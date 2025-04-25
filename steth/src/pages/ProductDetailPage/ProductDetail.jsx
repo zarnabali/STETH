@@ -98,7 +98,7 @@ const ProductDetailPage = ({ children }) => {
   }, [productId]); // Re-fetch when productId changes
 
   return (
-    <div className="font-poppins min-h-screen flex flex-col bg-white">
+    <div className="font-poppins min-h-screen  flex flex-col bg-white">
       <Header />
       {loading ? (
         <div className="flex-grow flex items-center justify-center">

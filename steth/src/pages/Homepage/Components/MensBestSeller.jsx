@@ -10,15 +10,15 @@ import 'swiper/css/free-mode';
 import 'swiper/css/mousewheel';
 
 // Import product images
-import product1Img1 from '../../../assets/product/product1_img1.png';
-import product1Img2 from '../../../assets/product/product1_img2.png';
-import product2Img1 from '../../../assets/product/product2_img1.png';
-import product2Img2 from '../../../assets/product/product2_img2.png';
-import product3Img1 from '../../../assets/product/product3_img1.png';
-import product3Img2 from '../../../assets/product/product3_img2.png';
-import product4Img1 from '../../../assets/product/product4_img1.png';
-import product4Img2 from '../../../assets/product/product4_img2.png';
-import product5Img1 from '../../../assets/product/product5_img1.png';
+import product1Img1 from '../../../assets/Mens/products/men_product_01_img_01.png';
+import product1Img2 from '../../../assets/Mens/products/men_product_01_img_01.png';
+import product2Img1 from '../../../assets/Mens/products/men_product_02_img_01.png';
+import product2Img2 from '../../../assets/Mens/products/men_product_02_img_01.png';
+import product3Img1 from '../../../assets/Mens/products/men_product_03_img_01.png';
+import product3Img2 from '../../../assets/Mens/products/men_product_03_img_01.png';
+import product4Img1 from '../../../assets/Mens/products/men_product_04_img_01.png';
+import product4Img2 from '../../../assets/Mens/products/men_product_04_img_01.png';
+import product5Img1 from '../../../assets/Mens/products/men_product_05_img_01.png';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -36,7 +36,7 @@ const bestSellingProducts = [
   },
   {
     id: 2,
-    name: 'Catarina One-Pocket Scrub Top™',
+    name: 'High Waisted Isabel Wide Leg Scrub Pants™',
     price: 38.00,
     image1: product2Img1,
     image2: product2Img2,
@@ -54,7 +54,7 @@ const bestSellingProducts = [
   },
   {
     id: 4,
-    name: 'Rafaela Oversized Scrub Top™',
+    name: 'Rafaela Oversized Scrub Top with Leg Srub Pants™',
     price: 38.00,
     image1: product4Img1,
     image2: product4Img2,
@@ -63,7 +63,7 @@ const bestSellingProducts = [
   },
   {
     id: 5,
-    name: 'Catarina One-Pocket Scrub Top™',
+    name: 'Catarina One-Pocket Scrub Top with Leg Srub Pants™',
     price: 38.00,
     image1: product5Img1,
     image2: product5Img1,
@@ -81,7 +81,7 @@ const bestSellingProducts = [
   },
   {
     id: 7,
-    name: 'Catarina One-Pocket Scrub Top™',
+    name: 'Catarina One-Pocket Scrub Top with Leg Scrub Pants™',
     price: 38.00,
     image1: product2Img1,
     image2: product2Img2,

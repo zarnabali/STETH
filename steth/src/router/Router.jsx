@@ -7,6 +7,16 @@ import Homepage from '../pages/Homepage/Homepage';
 import MensPage from '../pages/Menspage/MensPage';
 import ProductDetailPage from '../pages/ProductDetailPage/ProductDetail';
 import WomenPage from '../pages/Womenpage/WomenPage';
+import CheckoutPage from '../pages/Checkout/CheckoutPage';
+import Cart from '../pages/Cart/Cart';
+import Login from '../pages/Login&Signup/Login';
+import Signup from '../pages/Login&Signup/SignUp';
+import OTP from '../pages/Login&Signup/OTP';
+import PasswordRecovery from '../pages/Login&Signup/Password-Recovery'
+import AboutUs from '../pages/AboutUs/AboutUs';
+import StudentVerification from '../pages/Student/Student';
+import CartPage from '../pages/Cart/Cart';
+
 
 const AppRouter = () => {
   return (
@@ -15,7 +25,7 @@ const AppRouter = () => {
       <Route path="/" element={<Homepage />} />
       
       {/* Men's page route */}
-      <Route path="/mens" element={<MensPage />} />
+      <Route path="/men" element={<MensPage />} />
 
 
 
@@ -24,11 +34,35 @@ const AppRouter = () => {
 
 
 
+        
+         {/* Women's page route */}
+         <Route path="/checkout" element={<CheckoutPage />} />
+
+
     
       
       {/* Product detail routes */}
-      <Route path="/product" element={<ProductDetailPage />} />
-     
+      <Route path="/product"  element={<ProductDetailPage/>} />
+
+
+
+      <Route path="/login"  element={<Login/>} />
+      <Route path="/signup"  element={<Signup/>} />
+      <Route path="/otp"  element={<OTP/>} />
+      <Route path="/password-recovery"  element={<PasswordRecovery/>} />
+
+
+
+      <Route path="/aboutus"  element={<AboutUs/>} />
+
+
+      <Route path="/students"  element={<StudentVerification/>} />
+
+
+      <Route path="/cart"  element={<Cart/>} />
+
+
+
 
 
 

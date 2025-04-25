@@ -8,7 +8,7 @@ const AwesomeHumansFooter = () => {
           <div className="w-full md:w-1/4 pr-8">
             <h1 className="text-4xl font-bold mb-4">AWESOME HUMANS</h1>
             <p className="text-gray-400 mb-6">#WEARSTETH</p>
-            
+
             <div className="flex space-x-4 mb-8">
               <a href="#" className="text-gray-400 hover:text-white">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -113,3 +113,4 @@ const AwesomeHumansFooter = () => {
 };
 
 export default AwesomeHumansFooter;
+

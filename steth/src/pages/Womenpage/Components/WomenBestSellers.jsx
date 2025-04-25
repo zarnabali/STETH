@@ -225,7 +225,7 @@ const ProductCard = ({ product }) => {
   );
 };
 
-const MenBestSellers = () => {
+const WomenBestSellers = () => {
   const [swiper, setSwiper] = useState(null);
   const [isMounted, setIsMounted] = useState(false);
 
@@ -302,4 +302,4 @@ const MenBestSellers = () => {
   );
 };
 
-export default MenBestSellers;
+export default WomenBestSellers;
