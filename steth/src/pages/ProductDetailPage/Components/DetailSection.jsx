@@ -2,17 +2,14 @@
 
 import { useState, useEffect, useRef } from "react"
 import { gsap } from "gsap"
-import { X, ChevronLeft, ChevronRight, Check } from "lucide-react"
-
-
+import { X, ChevronLeft, ChevronRight, Check, Plus, Minus } from "lucide-react"
+import { useNavigate } from "react-router-dom" // Changed from next/navigation to react-router-dom
 
 import product1Img1 from '../../../assets/Mens/products/men_product_01_img_01.png';
 import product2Img1 from '../../../assets/Mens/products/men_product_02_img_01.png';
 import product3Img1 from '../../../assets/Mens/products/men_product_03_img_01.png';
 import product4Img1 from '../../../assets/Mens/products/men_product_04_img_01.png';
 import product5Img1 from '../../../assets/Mens/products/men_product_05_img_01.png';
-
-
 
 // Product data object
 const productData = {
@@ -61,14 +58,21 @@ const productData = {
 }
 
 export default function ProductDetail() {
+  const navigate = useNavigate(); // Changed from useRouter to useNavigate
+  
   const [selectedColor, setSelectedColor] = useState(productData.colors[1].id) // Default to white
   const [selectedSize, setSelectedSize] = useState(null)
   const [currentImageIndex, setCurrentImageIndex] = useState(0)
   const [lightboxOpen, setLightboxOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const [quantity, setQuantity] = useState(1)
+  const [validationError, setValidationError] = useState("")
+  const [successMessage, setSuccessMessage] = useState("")
+  const [cartItems, setCartItems] = useState([])
 
   const productRef = useRef(null)
   const lightboxRef = useRef(null)
+  const successMessageRef = useRef(null)
 
   useEffect(() => {
     const checkMobile = () => {
@@ -138,6 +142,126 @@ export default function ProductDetail() {
     })
   }
 
+  const incrementQuantity = () => {
+    setQuantity(prev => prev + 1)
+  }
+
+  const decrementQuantity = () => {
+    if (quantity > 1) {
+      setQuantity(prev => prev - 1)
+    }
+  }
+
+  // Helper function for validation
+  const validateInputs = () => {
+    // Reset validation error
+    setValidationError("")
+    
+    // Validation checks
+    if (!selectedColor) {
+      setValidationError("Please select a color")
+      return false
+    }
+    if (!selectedSize) {
+      setValidationError("Please select a size")
+      return false
+    }
+    if (quantity <= 0) {
+      setValidationError("Quantity must be greater than 0")
+      return false
+    }
+    
+    return true
+  }
+
+  const validateAndAddToBag = () => {
+    // Reset success message
+    setSuccessMessage("")
+    
+    // Validate inputs
+    if (!validateInputs()) {
+      return
+    }
+
+    // Get selected color object for complete information
+    const selectedColorObj = productData.colors.find(color => color.id === selectedColor)
+    
+    // Create item object with ALL required information
+    const itemToAdd = {
+      id: productData.id,
+      name: productData.name,
+      price: productData.price,
+      colorId: selectedColor,
+      colorName: selectedColorObj.name,
+      colorHex: selectedColorObj.hex,
+      size: selectedSize,
+      quantity: quantity,
+      image: productData.images[currentImageIndex],
+      timestamp: new Date().toISOString(),
+      totalPrice: productData.price * quantity
+    }
+
+    // Add to cart items
+    const updatedCart = [...cartItems, itemToAdd]
+    setCartItems(updatedCart)
+    
+    // Log the item and cart to verify all data is correctly stored
+    console.log("Item added to bag:", itemToAdd)
+    console.log("Current cart:", updatedCart)
+
+    // Store cart in localStorage for persistence (optional)
+    try {
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart))
+    } catch (error) {
+      console.error("Could not save to localStorage:", error)
+    }
+
+    // Show success message with animation
+    setSuccessMessage("Item added to bag successfully!")
+    if (successMessageRef.current) {
+      gsap.fromTo(
+        successMessageRef.current, 
+        { opacity: 0, y: -20 }, 
+        { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }
+      )
+      
+      // Auto hide after 3 seconds
+      setTimeout(() => {
+        gsap.to(successMessageRef.current, { 
+          opacity: 0, 
+          y: -20, 
+          duration: 0.5, 
+          ease: "power2.in",
+          onComplete: () => setSuccessMessage("")
+        })
+      }, 3000)
+    }
+  }
+
+  const proceedToCheckout = () => {
+    // First validate cart has items
+    if (!cartItems.length) {
+      setValidationError("Your bag is empty. Please add items first.")
+      return
+    }
+    
+    // Then validate current selections in case user wants to add the current item
+    if (validateInputs()) {
+      // Ask user if they want to add current item to cart before proceeding
+      const addCurrentItem = window.confirm("Do you want to add the current item to your bag before checkout?")
+      
+      if (addCurrentItem) {
+        validateAndAddToBag()
+      }
+      
+      // Navigate to checkout page with cart data
+      console.log("Proceeding to checkout with items:", cartItems)
+      
+      // Use React Router's navigate to go to checkout page
+      navigate('/checkout')
+    }
+  }
+
   // Get the selected color object
   const selectedColorObj = productData.colors.find((color) => color.id === selectedColor)
 
@@ -196,7 +320,7 @@ export default function ProductDetail() {
               {productData.colors.map((color) => (
                 <button
                   key={color.id}
-                  className={`w-10 h-10 rounded-full ${color.id === "white" ? "bg-white border border-gray-300" : ""}`}
+                  className={`w-10 h-10 rounded-full ${color.id === "white" ? "bg-white border border-gray-300" : ""} ${selectedColor === color.id ? "ring-2 ring-black" : ""}`}
                   style={{ backgroundColor: color.hex }}
                   onClick={() => setSelectedColor(color.id)}
                 >
@@ -225,7 +349,54 @@ export default function ProductDetail() {
             </div>
           </div>
 
-          <button className="w-full py-4 bg-black text-white font-medium mb-4 rounded-none">ADD TO BAG</button>
+          {/* Quantity Selector */}
+          <div className="mb-4">
+            <p className="font-medium mb-2">QUANTITY</p>
+            <div className="flex items-center border border-gray-300 inline-flex">
+              <button 
+                onClick={decrementQuantity} 
+                className="px-3 py-2 bg-white"
+              >
+                <Minus size={16} />
+              </button>
+              <span className="px-4 py-2 min-w-[40px] text-center">{quantity}</span>
+              <button 
+                onClick={incrementQuantity} 
+                className="px-3 py-2 bg-white"
+              >
+                <Plus size={16} />
+              </button>
+            </div>
+          </div>
+
+          {/* Validation Error */}
+          {validationError && (
+            <div className="mb-4 text-red-500 text-sm">{validationError}</div>
+          )}
+          
+          {/* Success Message */}
+          {successMessage && (
+            <div 
+              className="mb-4 bg-green-100 text-green-800 p-2 border border-green-200"
+              ref={successMessageRef}
+            >
+              {successMessage}
+            </div>
+          )}
+
+          <button 
+            className="w-full py-4 bg-black text-white font-medium mb-4 rounded-none"
+            onClick={validateAndAddToBag}
+          >
+            ADD TO BAG
+          </button>
+
+          <button 
+            className="w-full py-4 bg-gray-800 text-black bg-white border border-black font-medium mb-4 rounded-none"
+            onClick={proceedToCheckout}
+          >
+            PROCEED TO CHECKOUT
+          </button>
 
           <p className="text-center text-gray-600 text-sm mb-4">{productData.exclusions}</p>
 
@@ -233,9 +404,9 @@ export default function ProductDetail() {
         </div>
       ) : (
         /* Desktop View */
-        <div className="mx-10 px-20  py-8 flex">
-           {/* Thumbnail Gallery - Custom size */}
-           <div className="w-45 mr-6">
+        <div className="mx-10 px-20 py-8 flex">
+          {/* Thumbnail Gallery - Custom size */}
+          <div className="w-45 mr-6">
             {productData.images.slice(0, 7).map((image, index) => (
               <div
                 key={index}
@@ -252,14 +423,14 @@ export default function ProductDetail() {
           </div>
           
           {/* Main Image */}
-          <div className="flex-1 relative mr-20  ml-10">
+          <div className="flex-1 relative mr-20 ml-10">
             <img
               src={productData.images[currentImageIndex] || "/placeholder.svg"}
               alt={productData.name}
-              className="w-[95%] max-h-[80%] h-auto cursor-pointer "
+              className="w-[95%] max-h-[80%] h-auto cursor-pointer"
               onClick={() => openLightbox(currentImageIndex)}
             />
-          <div className="absolute mt-8 left-0 right-0 flex justify-center">
+            <div className="absolute mt-8 left-0 right-0 flex justify-center">
               {productData.images.map((_, index) => (
                 <button
                   key={index}
@@ -333,8 +504,53 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            <button className="w-full py-4 bg-black text-white rounded-none font-medium text-sm mb-6">
+            {/* Quantity Selector */}
+            <div className="mb-8">
+              <p className="font-medium mb-3">QUANTITY</p>
+              <div className="flex items-center border border-gray-300 inline-flex">
+                <button 
+                  onClick={decrementQuantity} 
+                  className="px-3 py-2 bg-white"
+                >
+                  <Minus size={16} />
+                </button>
+                <span className="px-4 py-2 min-w-[40px] text-center">{quantity}</span>
+                <button 
+                  onClick={incrementQuantity} 
+                  className="px-3 py-2 bg-white"
+                >
+                  <Plus size={16} />
+                </button>
+              </div>
+            </div>
+
+            {/* Validation Error */}
+            {validationError && (
+              <div className="mb-6 text-red-500 text-sm">{validationError}</div>
+            )}
+            
+            {/* Success Message */}
+            {successMessage && (
+              <div 
+                className="mb-6 bg-green-100 text-green-800 p-2 border border-green-200"
+                ref={successMessageRef}
+              >
+                {successMessage}
+              </div>
+            )}
+
+            <button 
+              className="w-full py-4 bg-black text-white rounded-none font-medium text-sm mb-4"
+              onClick={validateAndAddToBag}
+            >
               ADD TO BAG
+            </button>
+
+            <button 
+              className="w-full py-4 bg-gray-800 bg-white border border-black rounded-none font-medium text-sm mb-6"
+              onClick={proceedToCheckout}
+            >
+              PROCEED TO CHECKOUT
             </button>
 
             <p className="text-center text-gray-600 text-sm mb-6">{productData.exclusions}</p>

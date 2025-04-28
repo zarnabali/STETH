@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import gsap from "gsap";
 import logo from '../assets/logo.png';
 
-const Header = ({ className = '' }) => {
+const Header = ({ className = '', isLoggedIn = false }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState("Women");
   const headerRef = useRef(null);
@@ -155,7 +155,7 @@ const Header = ({ className = '' }) => {
       
       <header ref={headerRef} className={`w-full z-50 sticky top-0 ${className}`}>
         {/* Desktop Header */}
-        <div className="hidden md:flex items-center justify-between  py-4 border-b bg-white shadow-md px-10">
+        <div className="hidden md:flex items-center justify-between py-4 border-b bg-white shadow-md px-10">
           <div className="flex items-center space-x-8">
             <a href="/" className="flex items-center" ref={logoRef}>
               <img src={logo} alt="STETH Logo" className="h-20 w-auto ml-10" />
@@ -194,12 +194,18 @@ const Header = ({ className = '' }) => {
             </div>
             
             <div className="flex items-center space-x-4" ref={iconsRef}>
-              <a href="/login" className="hover:text-gray-900 transition-colors">
-                <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                </svg>
-              </a>
-              <a href="/checkout" className="hover:text-gray-900 transition-colors">
+              {isLoggedIn ? (
+                <a href="/profile" className="hover:text-gray-900 transition-colors">
+                  <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                </a>
+              ) : (
+                <a href="/login" className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium">
+                  Login
+                </a>
+              )}
+              <a href="/cart" className="hover:text-gray-900 transition-colors">
                 <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
@@ -223,13 +229,9 @@ const Header = ({ className = '' }) => {
             <img src={logo} alt="STETH Logo" className="h-12" />
           </a>
           
-          <div className="flex items-center space-x-3">
-            <a href="/login">
-              <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-              </svg>
-            </a>
-            <a href="/checkout">
+          <div className="flex items-center px-3">
+            
+            <a href="/cart">
               <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
               </svg>
@@ -237,12 +239,12 @@ const Header = ({ className = '' }) => {
           </div>
         </div>
         
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu Overlay - Simplified */}
         {isMenuOpen && (
           <div className="fixed inset-0 bg-white z-[9999]">
             {/* Top Navigation */}
             <div className="border-b">
-              <div className="px-4 py-3 flex items-center">
+              <div className="px-4 py-3 flex items-center justify-between">
                 <button 
                   onClick={toggleMenu} 
                   className="p-2 bg-white"
@@ -251,124 +253,43 @@ const Header = ({ className = '' }) => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 </button>
-                <div className="flex-1 flex justify-center space-x-12">
-                  <button 
-                    onClick={() => setActiveTab("Women")}
-                    className={`relative py-3 px-2 text-base bg-white text-black border-none ${activeTab === "Women" ? 'font-bold' : 'font-normal'}`}
-                  >
-                    Women
-                    {activeTab === "Women" && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-black"></div>
-                    )}
-                  </button>
-                  <button 
-                    onClick={() => setActiveTab("Men")}
-                    className={`relative py-3 px-2 text-base bg-white text-black border-none ${activeTab === "Men" ? 'font-bold' : 'font-normal'}`}
-                  >
-                    Men
-                    {activeTab === "Men" && (
-                      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-black"></div>
-                    )}
-                  </button>
-                </div>
+                
+                {/* Keep the logo in the mobile menu header */}
+                <a href="/" className="flex items-center">
+                  <img src={logo} alt="STETH Logo" className="h-10" />
+                </a>
+                
+                <div className="w-6"></div> {/* Spacer for alignment */}
               </div>
             </div>
 
-            {/* Menu Content */}
-            <div className="h-[calc(100vh-120px)] overflow-y-auto px-4 bg-white">
-              {activeTab === "Women" ? (
-                <>
-                  <div className="py-4">
-                    <h3 className="text-sm uppercase tracking-wide text-gray-500 mb-4">WOMEN'S HOME</h3>
-                    <div className="space-y-4">
-                      <a href="/best-sellers" className="block text-sm uppercase font-medium">BEST SELLERS</a>
-                      <a href="/new-arrivals" className="block text-sm uppercase font-medium">NEW ARRIVALS</a>
-                      <a href="/limited" className="block text-sm uppercase font-medium text-[#D2461C]">AWESOME TODAY, GONE TOMORROW</a>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-gray-200 py-2">
-                    {[
-                      { name: "Scrubs", hasSubmenu: true },
-                      { name: "Collections", hasSubmenu: true },
-                      { name: "Underscrubs", hasSubmenu: true },
-                      { name: "Outerwear", hasSubmenu: false },
-                      { name: "Lab Coats", hasSubmenu: false },
-                      { name: "Footwear & Socks", hasSubmenu: true },
-                      { name: "Loungewear", hasSubmenu: false },
-                      { name: "Accessories", hasSubmenu: true },
-                      { name: "Shop by Color", hasSubmenu: true }
-                    ].map((item) => (
-                      <div 
-                        key={item.name}
-                        className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0"
-                      >
-                        <span className="text-sm font-medium">{item.name}</span>
-                        {item.hasSubmenu && (
-                          <svg 
-                            className="h-4 w-4 text-gray-400" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                          </svg>
-                        )}
-                      </div>
-                    ))}
-                    
-                    <div className="py-3">
-                      <a href="/teams-orders" className="block text-sm font-medium uppercase">TEAMS Orders</a>
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <>
-                  <div className="py-4">
-                    <h3 className="text-sm uppercase tracking-wide text-gray-500 mb-4">MEN'S HOME</h3>
-                    <div className="space-y-4">
-                      <a href="/men/best-sellers" className="block text-sm uppercase font-medium">BEST SELLERS</a>
-                      <a href="/men/new-arrivals" className="block text-sm uppercase font-medium">NEW ARRIVALS</a>
-                      <a href="/men/limited" className="block text-sm uppercase font-medium text-[#D2461C]">AWESOME TODAY, GONE TOMORROW</a>
-                    </div>
-                  </div>
-
-                  <div className="border-t border-gray-200 py-2">
-                    {[
-                      { name: "Scrubs", hasSubmenu: true },
-                      { name: "Collections", hasSubmenu: true },
-                      { name: "Underscrubs", hasSubmenu: true },
-                      { name: "Outerwear", hasSubmenu: false },
-                      { name: "Lab Coats", hasSubmenu: false },
-                      { name: "Footwear & Socks", hasSubmenu: true },
-                      { name: "Loungewear", hasSubmenu: false },
-                      { name: "Accessories", hasSubmenu: true },
-                      { name: "Shop by Color", hasSubmenu: true }
-                    ].map((item) => (
-                      <div 
-                        key={item.name}
-                        className="flex items-center justify-between py-3 border-b border-gray-200 last:border-b-0"
-                      >
-                        <span className="text-sm font-medium">{item.name}</span>
-                        {item.hasSubmenu && (
-                          <svg 
-                            className="h-4 w-4 text-gray-400" 
-                            fill="none" 
-                            stroke="currentColor" 
-                            viewBox="0 0 24 24"
-                          >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                          </svg>
-                        )}
-                      </div>
-                    ))}
-                    
-                    <div className="py-3">
-                      <a href="/teams-orders" className="block text-sm font-medium uppercase">TEAMS Orders</a>
-                    </div>
-                  </div>
-                </>
-              )}
+            {/* Simplified Mobile Menu */}
+            <div className="h-[calc(100vh-120px)] overflow-y-auto px-4 py-4 bg-white">
+              <nav className="space-y-6">
+                <a href="/women" className="block text-lg font-medium py-2 text-black hover:bg-gray-100 transition-colors rounded px-2">
+                  WOMENS
+                </a>
+                <a href="/men" className="block text-lg font-medium py-2 text-black hover:bg-gray-100 transition-colors rounded px-2">
+                  MENS
+                </a>
+                <a href="/aboutus" className="block text-lg font-medium py-2 text-black hover:bg-gray-100 transition-colors rounded px-2">
+                  ABOUT US
+                </a>
+                <a href="/students" className="block text-lg font-medium py-2 text-black hover:bg-gray-100 transition-colors rounded px-2">
+                  STUDENTS
+                </a>
+                
+                <div className="pt-4 border-t border-gray-200">
+                  {!isLoggedIn && (
+                    <a href="/login" className="block text-lg font-medium py-2 text-black hover:bg-gray-100 transition-colors rounded px-2">
+                      LOGIN
+                    </a>
+                  )}
+                  <a href="/cart" className="block text-lg font-medium py-2 text-black hover:bg-gray-100 transition-colors rounded px-2">
+                    CART
+                  </a>
+                </div>
+              </nav>
             </div>
           </div>
         )}

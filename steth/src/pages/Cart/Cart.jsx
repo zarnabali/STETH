@@ -94,9 +94,9 @@ const Cart = () => {
       
 
         {/* Navigation */}
-        <div className="bg-white py-3 shadow-sm w-full">
+        <div className="bg-white  shadow-sm w-full">
             <Header />
-          <div className="container mx-auto px-4">
+          <div className="container mx-auto px-4 py-4">
             <div className="flex gap-4">
               <a href="/" className="text-sm hover:underline">
                 Home

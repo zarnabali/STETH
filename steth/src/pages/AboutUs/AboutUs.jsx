@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger"
 import { MapPin, Mail, Phone, Clock, ArrowRight } from "lucide-react"
 import Header from "../../components/Header"
 import Footer from "../../components/Footer"
+import Logo from "../../assets/logo_black.jpg"
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger)
@@ -154,7 +155,7 @@ const OurStory = () => {
           <div className="mt-10 lg:mt-0">
             <img
               className="shadow-xl rounded-lg"
-              src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80"
+              src={Logo}
               alt="STETH medical wear"
             />
           </div>
