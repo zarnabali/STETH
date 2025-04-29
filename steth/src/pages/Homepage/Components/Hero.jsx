@@ -118,14 +118,13 @@ const Hero = () => {
             ref={headingRef} 
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 md:mb-8 text-white drop-shadow-lg"
           >
-            THE SET
+            THE STETH SET
           </h1>
           <p 
             ref={descRef} 
             className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-6 sm:mb-8 md:mb-12 text-white leading-relaxed px-2 sm:px-4 drop-shadow-md"
           >
-            Our best selling scrubs for $68 — engineered to help you feel good, look good, and perform at your best.
-            Plus, take 15% off your first order!
+            Conquer the day in our premium scrubs, crafted to be softer than your consultant’s heart.
           </p>
           <div 
             ref={buttonsRef} 
@@ -194,6 +193,12 @@ const Hero = () => {
               <div className="button-shine absolute inset-0 bg-gradient-to-r from-transparent via-black/10 to-transparent -translate-x-full"></div>
             </a>
           </div>
+          <p 
+            ref={descRef} 
+            className="text-base sm:text-lg text-gray-300 mt-5 md:text-xl lg:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 md:mb-12  leading-relaxed px-2 sm:px-4 drop-shadow-md"
+          >
+            For doctors, by doctors
+          </p>
         </div>
       </div>
     </section>

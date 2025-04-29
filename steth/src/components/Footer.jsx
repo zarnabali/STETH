@@ -6,7 +6,7 @@ const AwesomeHumansFooter = () => {
       <div className="container mx-auto px-4 py-20 my-20">
         <div className="flex flex-col md:flex-row space-y-8 md:space-y-0">
           <div className="w-full md:w-1/4 pr-8">
-            <h1 className="text-4xl font-bold mb-4">AWESOME HUMANS</h1>
+            <h1 className="text-4xl font-bold mb-4">#STETHSET</h1>
             <p className="text-gray-400 mb-6">#WEARSTETH</p>
 
             <div className="flex space-x-4 mb-8">
@@ -55,7 +55,6 @@ const AwesomeHumansFooter = () => {
                 <li><a href="#" className="text-gray-400 hover:text-white">Help Center</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Shipping</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Returns & Exchanges</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Team Orders</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Sign up for Texts</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Contact Us</a></li>
                 <li className="text-gray-400">424-500-8209</li>
@@ -67,12 +66,6 @@ const AwesomeHumansFooter = () => {
               <h4 className="font-semibold mb-4">OUR COMPANY</h4>
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-400 hover:text-white">Our Story</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Community Hubs</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Healthcare Advisory Board</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Press</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Investors</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Careers</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Mobile App</a></li>
               </ul>
             </div>
 
@@ -82,8 +75,7 @@ const AwesomeHumansFooter = () => {
                 <li><a href="#" className="text-gray-400 hover:text-white">Gift Cards</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Care Instructions</a></li>
                 <li><a href="#" className="text-gray-400 hover:text-white">Student Discount</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Refer a Friend</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Provide Feedback</a></li>
+              
               </ul>
             </div>
 
@@ -91,7 +83,6 @@ const AwesomeHumansFooter = () => {
               <h4 className="font-semibold mb-4">LEGAL</h4>
               <ul className="space-y-2">
                 <li><a href="#" className="text-gray-400 hover:text-white">STETH Terms & Conditions</a></li>
-                <li><a href="#" className="text-gray-400 hover:text-white">Accessibility Statement</a></li>
                  </ul>
             </div>
           </div>

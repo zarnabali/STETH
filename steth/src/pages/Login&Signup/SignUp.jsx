@@ -2,19 +2,17 @@
 
 import { useState, useEffect, useRef } from "react"
 import { gsap } from "gsap"
-import { Eye, EyeOff, ArrowRight, Mail, Lock, User, X, Upload, UserRound } from "lucide-react"
+import { Eye, EyeOff, ArrowRight, Mail, Lock, User, X, UserRound } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 import Header from "../../components/Header"
 
 const Signup = () => {
-  const [userType, setUserType] = useState("normal")
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const [username, setUsername] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
-  const [studentCard, setStudentCard] = useState(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -24,7 +22,6 @@ const Signup = () => {
   const buttonRef = useRef(null)
   const dividerRef = useRef(null)
   const googleButtonRef = useRef(null)
-  const userTypeRef = useRef(null)
   const errorRef = useRef(null)
 
   const navigate = useNavigate()
@@ -55,33 +52,10 @@ const Signup = () => {
         { opacity: 0 },
         { opacity: 1, duration: 0.5, delay: 0.7, stagger: 0.1, ease: "power2.out" },
       )
-
-      // User type selector
-      gsap.fromTo(userTypeRef.current, { opacity: 0 }, { opacity: 1, duration: 0.5, delay: 0.3, ease: "power2.out" })
     })
 
     return () => ctx.revert() // Cleanup
   }, [])
-
-  // Animation when switching between user types
-  useEffect(() => {
-    // Animate inputs when switching modes
-    const timeline = gsap.timeline()
-    timeline.to(inputsRef.current, {
-      opacity: 0,
-      y: -10,
-      duration: 0.3,
-      stagger: 0.05,
-      onComplete: () => {
-        timeline.to(inputsRef.current, {
-          opacity: 1,
-          y: 0,
-          duration: 0.3,
-          stagger: 0.05,
-        })
-      },
-    })
-  }, [userType])
 
   // Error animation
   useEffect(() => {
@@ -89,12 +63,6 @@ const Signup = () => {
       gsap.fromTo(errorRef.current, { opacity: 0, y: -10 }, { opacity: 1, y: 0, duration: 0.3 })
     }
   }, [error])
-
-  const handleFileChange = (e) => {
-    if (e.target.files && e.target.files[0]) {
-      setStudentCard(e.target.files[0])
-    }
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -121,18 +89,11 @@ const Signup = () => {
         return
       }
 
-      if (userType === "student" && !studentCard) {
-        setError("Please upload your student card")
-        return
-      }
-
       // Create user object
       const userData = {
-        userType,
         username,
         email,
         password,
-        studentCard: userType === "student" ? studentCard.name : null,
       }
 
       // Successful signup would redirect
@@ -171,7 +132,7 @@ const Signup = () => {
   return (
     <div className="min-h-screen w-screen flex-col items-center justify-center bg-gray-50 ">
          <Header/>
-         <div  className="flex items-center justify-center bg-gray-50 px-4 py-12">
+         <div className="flex items-center justify-center bg-gray-50 px-4 py-12">
       <div ref={formRef} className="w-full max-w-md md:max-w-lg bg-white rounded-lg shadow-lg overflow-hidden">
         {/* Form Header */}
         <div className="p-6 sm:p-8 bg-black text-white">
@@ -198,39 +159,6 @@ const Signup = () => {
 
         {/* Form Body */}
         <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-4 md:space-y-6">
-          {/* User Type Selection */}
-          <div ref={userTypeRef} className="space-y-1">
-            <label htmlFor="userType" className="block text-sm md:text-base font-medium text-gray-700">
-              Register as
-            </label>
-            <div className="grid grid-cols-2 gap-4">
-              <button
-                type="button"
-                onClick={() => setUserType("normal")}
-                className={`flex items-center justify-center p-3 md:p-4 rounded-md border transition-colors ${
-                  userType === "normal"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                <UserRound size={18} className="mr-2" />
-                <span className="text-sm md:text-base">Normal User</span>
-              </button>
-              <button
-                type="button"
-                onClick={() => setUserType("student")}
-                className={`flex items-center justify-center p-3 md:p-4 rounded-md border transition-colors ${
-                  userType === "student"
-                    ? "border-black bg-black text-white"
-                    : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-                }`}
-              >
-                <User size={18} className="mr-2" />
-                <span className="text-sm md:text-base">Student</span>
-              </button>
-            </div>
-          </div>
-
           {/* Username Field */}
           <div ref={addToInputsRef} className="space-y-1">
             <label htmlFor="username" className="block text-sm md:text-base font-medium text-gray-700">
@@ -293,7 +221,7 @@ const Signup = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0  flex items-center"
+                className="absolute inset-y-0 right-0 flex items-center"
                 onClick={() => setShowPassword(!showPassword)}
               >
                 {showPassword ? (
@@ -325,7 +253,7 @@ const Signup = () => {
               />
               <button
                 type="button"
-                className="absolute inset-y-0 right-0  flex items-center"
+                className="absolute inset-y-0 right-0 flex items-center"
                 onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               >
                 {showConfirmPassword ? (
@@ -336,36 +264,6 @@ const Signup = () => {
               </button>
             </div>
           </div>
-
-          {/* Student Card Upload - Only for Student Users */}
-          {userType === "student" && (
-            <div ref={addToInputsRef} className="space-y-1">
-              <label htmlFor="studentCard" className="block text-sm md:text-base font-medium text-gray-700">
-                Upload Student Card
-              </label>
-              <div className="relative">
-                <label
-                  htmlFor="studentCard"
-                  className="flex items-center justify-center w-full p-4 md:p-6 border-2 border-dashed border-gray-300 rounded-md cursor-pointer hover:bg-gray-50"
-                >
-                  <div className="flex flex-col items-center space-y-2">
-                    <Upload size={24} className="text-gray-400" />
-                    <span className="text-sm md:text-base text-gray-500">
-                      {studentCard ? studentCard.name : "Click to upload your student card"}
-                    </span>
-                  </div>
-                  <input
-                    id="studentCard"
-                    type="file"
-                    accept="image/*,.pdf"
-                    onChange={handleFileChange}
-                    className="hidden"
-                    required={userType === "student"}
-                  />
-                </label>
-              </div>
-            </div>
-          )}
 
           {/* Submit Button */}
           <div ref={buttonRef}>

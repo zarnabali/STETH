@@ -2,12 +2,13 @@ import React, { useEffect } from 'react';
 import Header from '../../components/Header';
 import Hero from './Components/Hero';
 import BestSellers from './Components/WomenBestSellers';
-
 import FeatureSection from '../../components/FeatureSection';
 import MensBestSellers from './Components/MensBestSeller';
 import RewardsCTA from '../../components/DiscountOffers';
-import NewsletterSignup from '../../components/ContactUs';
+import ColorTileSlider from './Components/ColorTile';
 import AwsomeHumansFooter from '../../components/Footer';
+import RegistrationPopup from './Components/PopUp'; // Import the new popup component
+
 const Homepage = ({ children }) => {
   // Add fonts and styles directly without API calls
   useEffect(() => {
@@ -77,14 +78,15 @@ const Homepage = ({ children }) => {
     <div className="font-poppins min-h-screen flex flex-col w-full bg-white">
       <Header />
       <Hero />
-      
+      <ColorTileSlider />
       <BestSellers />
       <MensBestSellers />
       <RewardsCTA />
       <FeatureSection />
-      <NewsletterSignup />
+      
       <AwsomeHumansFooter />
       <main className="flex-grow">{children}</main>
+      <RegistrationPopup /> {/* Add the popup component here */}
     </div>
   );
 };

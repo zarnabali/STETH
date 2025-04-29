@@ -24,31 +24,50 @@ const Header = ({ className = '', isLoggedIn = false }) => {
       document.body.style.overflow = 'auto';
     };
   }, []);
-
   useEffect(() => {
     // Text Slider Animation
     const slider = sliderRef.current;
     if (!slider) return;
-
+  
     const sliderContent = slider.querySelector('.slider-content');
     if (!sliderContent) return;
-
-    // Clone the content for seamless loop
-    const originalContent = sliderContent.innerHTML;
-    sliderContent.innerHTML = originalContent + originalContent;
-
-    // Create the infinite scroll animation with increased speed
+  
+    // Create multiple copies for smoother transition
+    const items = sliderContent.querySelectorAll('.slider-item');
+    if (!items.length) return;
+    
+    // Clear existing content and create a proper loop
+    sliderContent.innerHTML = '';
+    
+    // Add multiple copies for a smoother infinite loop
+    for (let i = 0; i < 4; i++) {
+      items.forEach(item => {
+        sliderContent.appendChild(item.cloneNode(true));
+      });
+    }
+  
+    // Set initial position
+    gsap.set(sliderContent, { x: 0 });
+  
+    // Create the infinite scroll animation
     const tl = gsap.timeline({
       repeat: -1,
-      defaults: { ease: "none" }
+      defaults: { ease: "linear" }
     });
-
+  
+    // Calculate the width of a single set of items
+    const singleSetWidth = sliderContent.scrollWidth / 4;
+  
     tl.to(sliderContent, {
-      x: "-50%",
-      duration: 8, // Animation duration
-      ease: "none"
+      x: -singleSetWidth,
+      duration: 50, // Increased duration to reduce speed (was 8)
+      ease: "linear", // Use linear for smooth constant speed
+      onComplete: () => {
+        // Reset position without animation for seamless loop
+        gsap.set(sliderContent, { x: 0 });
+      }
     });
-
+  
     // Cleanup
     return () => {
       tl.kill();
@@ -138,20 +157,7 @@ const Header = ({ className = '', isLoggedIn = false }) => {
 
   return (
     <>
-      {/* Text Slider - Added on top */}
-      <div 
-        ref={sliderRef} 
-        className="w-full bg-black text-white overflow-hidden"
-      >
-        <div className="slider-content flex whitespace-nowrap">
-          <div className="flex-shrink-0 px-4 md:px-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium">
-            Free Shipping Over $50 and Returns
-          </div>
-          <div className="flex-shrink-0 px-4 md:px-8 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-medium">
-            Free Shipping Over $50 and Returns
-          </div>
-        </div>
-      </div>
+      
       
       <header ref={headerRef} className={`w-full z-50 sticky top-0 ${className}`}>
         {/* Desktop Header */}
@@ -230,7 +236,6 @@ const Header = ({ className = '', isLoggedIn = false }) => {
           </a>
           
           <div className="flex items-center px-3">
-            
             <a href="/cart">
               <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
@@ -313,6 +318,29 @@ const Header = ({ className = '', isLoggedIn = false }) => {
           </div>
         </div>
       </header>
+
+
+      {/* Text Slider - Positioned at the top */}
+      <div 
+        ref={sliderRef} 
+        className="w-full bg-white text-white overflow-hidden h-8"
+      >
+        <div className="slider-content flex whitespace-nowrap">
+          <div className="slider-item text-black flex-shrink-0 ml-10 mr-10  text-xs sm:text-sm font-medium py-2">
+            Free delivery on orders over PKR 5000 
+          </div>
+          <div className="slider-item text-white flex-shrink-0 ml-10 mr-10  text-xs sm:text-sm font-medium py-2">
+            Free delivery on orders over PKR 5000 
+          </div>
+         
+          <div className="slider-item text-black flex-shrink-0 mr-10 ml-10 text-xs sm:text-sm font-medium py-2">
+            Free delivery on orders over PKR 5000
+          </div>
+          <div className="slider-item text-white flex-shrink-0 ml-10 mr-10  text-xs sm:text-sm font-medium py-2">
+            Free delivery on orders over PKR 5000 
+          </div>
+        </div>
+      </div>
     </>
   );
 };

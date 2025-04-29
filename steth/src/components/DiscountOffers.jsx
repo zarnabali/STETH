@@ -213,19 +213,7 @@ const RewardsCTA = () => {
       </div>
 
       {/* Text Slider - Full width without any padding */}
-      <div 
-        ref={sliderRef} 
-        className="w-full bg-white text-black overflow-hidden"
-      >
-        <div className="slider-content flex whitespace-nowrap">
-          <div className="flex-shrink-0 px-4 md:px-8 text-[40px] sm:text-[70px] md:text-[80px] lg:text-[100px] font-bold">
-            Free Shipping Over $50 and Returns
-          </div>
-          <div className="flex-shrink-0 px-4 md:px-8 text-[40px] sm:text-[70px] md:text-[80px] lg:text-[100px] font-bold">
-            Free Shipping Over $50 and Returns
-          </div>
-        </div>
-      </div>
+     
     </div>
   );
 };
