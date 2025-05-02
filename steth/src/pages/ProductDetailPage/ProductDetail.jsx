@@ -5,6 +5,7 @@ import ProductDetail from './Components/DetailSection';
 import MenBestSellers from '../Menspage/Components/MensBestSeller';
 import ProductReviews from './Components/ReviewsSection';
 import AwsomeHumansFooter from '../../components/Footer';
+import ProductFeatures from './Components/Features';
 
 const ProductDetailPage = ({ children }) => {
   const { productId } = useParams(); // Get the product ID from the URL
@@ -107,7 +108,9 @@ const ProductDetailPage = ({ children }) => {
       ) : (
         <>
           <ProductDetail product={product} />
+          <ProductFeatures/>
           <MenBestSellers />
+         
           <ProductReviews productId={productId} />
           <main className="flex-grow">{children}</main>
         </>

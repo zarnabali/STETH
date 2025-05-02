@@ -5,6 +5,8 @@ import BestSellers from './Components/WomenBestSellers';
 import FeatureSection from '../../components/FeatureSection';
 import MensBestSellers from './Components/MensBestSeller';
 import RewardsCTA from '../../components/DiscountOffers';
+import NewsletterSignup from '../../components/NewsletterSignup';
+import ColorTileCarousel from './Components/ColorTileCarousal';
 import ColorTileSlider from './Components/ColorTile';
 import AwsomeHumansFooter from '../../components/Footer';
 import RegistrationPopup from './Components/PopUp'; // Import the new popup component
@@ -78,12 +80,12 @@ const Homepage = ({ children }) => {
     <div className="font-poppins min-h-screen flex flex-col w-full bg-white">
       <Header />
       <Hero />
-      <ColorTileSlider />
+      <ColorTileCarousel />
       <BestSellers />
       <MensBestSellers />
       <RewardsCTA />
       <FeatureSection />
-      
+      <NewsletterSignup />
       <AwsomeHumansFooter />
       <main className="flex-grow">{children}</main>
       <RegistrationPopup /> {/* Add the popup component here */}

@@ -164,7 +164,7 @@ const Cart = () => {
                           className="w-8 h-8 flex items-center justify-center bg-white text-black border border-[#d1d1d1] rounded hover:bg-gray-50"
                           aria-label="Increase quantity"
                         >
-                          <Plus size={16} stroke="black" />
+                          <Plus size={16} className="text-black" />
                         </button>
                       </div>
 

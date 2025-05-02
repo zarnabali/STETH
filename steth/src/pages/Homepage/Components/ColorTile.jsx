@@ -1,256 +1,210 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { Swiper, SwiperSlide } from "swiper/react"
-import { FreeMode, Mousewheel, Autoplay } from "swiper/modules"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-// Import Swiper styles
-import "swiper/css"
-import "swiper/css/free-mode"
-
-// Register GSAP plugins
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger)
 }
 
-// Color tile data
 const colorTiles = [
   {
     id: 1,
     name: "BLACK",
-    image: "/images/black.png",
     color: "#222222",
   },
   {
     id: 2,
     name: "NAVY",
-    image: "/images/black.png",
     color: "#1D3461",
   },
   {
     id: 3,
     name: "MOSS",
-    image: "/images/black.png",
     color: "#4A5D23",
   },
   {
     id: 4,
-    name: "CHARCOAL",
-    image: "/images/black.png",
-    color: "#36454F",
-  },
-  {
-    id: 5,
     name: "BURGUNDY",
-    image: "/images/black.png",
     color: "#800020",
   },
   {
-    id: 6,
+    id: 5,
     name: "SLATE",
-    image: "/images/black.png",
     color: "#708090",
-  },
-  {
-    id: 7,
-    name: "INDOCYANINE GREEN",
-    image: "/images/black.png",
-    color: "#006B54",
-  },
-  {
-    id: 8,
-    name: "CHAMBRAY",
-    image: "/images/black.png",
-    color: "#9BBBCC",
-  },
-  {
-    id: 9,
-    name: "GRAPHITE",
-    image: "/images/black.png",
-    color: "#383838",
-  },
-  {
-    id: 10,
-    name: "CEIL BLUE",
-    image: "/images/black.png",
-    color: "#92A1CF",
   },
 ]
 
-const ColorTile = ({ tile }) => {
-  const tileRef = useRef(null)
-  const [isLoaded, setIsLoaded] = useState(false)
+const ColorTileCarousel = () => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [prevIndex, setPrevIndex] = useState(colorTiles.length - 1);
+  const [isTouching, setIsTouching] = useState(false);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const carouselRef = useRef(null);
+  const intervalRef = useRef(null);
+  const touchStartX = useRef(0);
+  const touchEndX = useRef(0);
+  const directionRef = useRef('next');
+
+  const nextSlide = () => {
+    if (isAnimating) return;
+    directionRef.current = 'next';
+    setPrevIndex(activeIndex);
+    setActiveIndex((prev) => (prev === colorTiles.length - 1 ? 0 : prev + 1));
+  };
+
+  const prevSlide = () => {
+    if (isAnimating) return;
+    directionRef.current = 'prev';
+    setPrevIndex(activeIndex);
+    setActiveIndex((prev) => (prev === 0 ? colorTiles.length - 1 : prev - 1));
+  };
+
+  const goToSlide = (index) => {
+    if (isAnimating || index === activeIndex) return;
+    
+    if ((index > activeIndex && !(activeIndex === 0 && index === colorTiles.length - 1)) || 
+        (activeIndex === colorTiles.length - 1 && index === 0)) {
+      directionRef.current = 'next';
+    } else {
+      directionRef.current = 'prev';
+    }
+    
+    setPrevIndex(activeIndex);
+    setActiveIndex(index);
+  };
+
+  const handleTouchStart = (e) => {
+    touchStartX.current = e.touches[0].clientX;
+    setIsTouching(true);
+  };
+
+  const handleTouchMove = (e) => {
+    touchEndX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = () => {
+    setIsTouching(false);
+    const diff = touchStartX.current - touchEndX.current;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        nextSlide();
+      } else {
+        prevSlide();
+      }
+    }
+  };
 
   useEffect(() => {
-    if (typeof window === "undefined" || !tileRef.current) return
-
-    const animation = gsap.fromTo(
-      tileRef.current,
-      {
-        y: 15,
-        opacity: 0,
-      },
-      {
-        y: 0,
-        opacity: 1,
-        duration: 0,
-        ease: "power1.out",
-        scrollTrigger: {
-          trigger: tileRef.current,
-          start: "top bottom-=50",
-          toggleActions: "play none none none",
-        },
+    if (carouselRef.current) {
+      const tiles = carouselRef.current.querySelectorAll('.color-tile');
+      const prevTile = tiles[prevIndex];
+      const activeTile = tiles[activeIndex];
+      
+      if (prevTile && activeTile) {
+        setIsAnimating(true);
+        
+        if (directionRef.current === 'next') {
+          gsap.set(prevTile, { x: 0, opacity: 1, zIndex: 10 });
+          gsap.set(activeTile, { x: '100%', opacity: 1, zIndex: 5 });
+          
+          const tl = gsap.timeline({
+            onComplete: () => setIsAnimating(false)
+          });
+          tl.to(prevTile, { x: '-100%', duration: 0.8, ease: "power2.inOut" });
+          tl.to(activeTile, { x: 0, duration: 0.8, ease: "power2.inOut" }, '-=0.8');
+        } else {
+          gsap.set(prevTile, { x: 0, opacity: 1, zIndex: 10 });
+          gsap.set(activeTile, { x: '-100%', opacity: 1, zIndex: 5 });
+          
+          const tl = gsap.timeline({
+            onComplete: () => setIsAnimating(false)
+          });
+          tl.to(prevTile, { x: '100%', duration: 0.8, ease: "power2.inOut" });
+          tl.to(activeTile, { x: 0, duration: 0.8, ease: "power2.inOut" }, '-=0.8');
+        }
       }
-    )
+    }
+  }, [activeIndex, prevIndex]);
 
-    const img = new Image()
-    img.onload = () => setIsLoaded(true)
-    img.src = tile.image
+  useEffect(() => {
+    intervalRef.current = setInterval(() => {
+      if (!isTouching && !isAnimating) nextSlide();
+    }, 5000);
 
     return () => {
-      if (animation) animation.kill()
-    }
-  }, [tile.image])
+      if (intervalRef.current) clearInterval(intervalRef.current);
+    };
+  }, [isTouching, isAnimating]);
 
   return (
-    <div 
-      ref={tileRef} 
-      className="group cursor-pointer flex flex-col items-center  mt-10"
-    >
-      {/* Image Container */}
-      <div
-        className="relative w-[170px] h-[170px] mb-3 overflow-hidden rounded-lg shadow-md transition-transform duration-300 group-hover:scale-105"
-        style={{ backgroundColor: tile.color }}
+    <div className="relative w-full bg-white py-8 my-20">
+      <div 
+        ref={carouselRef}
+        className="relative w-full flex flex-col items-center justify-center"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
       >
-        <img
-          src={tile.image || "/placeholder.svg"}
-          alt={`${tile.name} color theme`}
-          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-500 ${isLoaded ? "opacity-100" : "opacity-0"}`}
-        />
+        <div className="relative w-full max-w-xs sm:max-w-md md:max-w-2xl lg:max-w-5xl mx-auto">
+          <div className="relative w-full h-[40vh] overflow-hidden">
+            {colorTiles.map((tile, index) => (
+              <div
+                key={tile.id}
+                className={`color-tile absolute inset-0 mx-4 sm:mx-8 md:mx-12 flex justify-center items-center
+                            ${index !== activeIndex && index !== prevIndex ? "opacity-0" : "opacity-100"}`}
+                style={{ zIndex: index === activeIndex ? 5 : (index === prevIndex ? 10 : 0) }}
+              >
+                <div className="w-full aspect-[16/9] relative shadow-md">
+                  <div
+                    className="w-full h-full flex items-center justify-center"
+                    style={{ backgroundColor: tile.color }}
+                  >
+                    <h3 className="text-lg sm:text-xl md:text-3xl lg:text-4xl font-bold text-white tracking-widest">
+                      {tile.name}
+                    </h3>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
 
-        {/* Hover Overlay */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 transition-opacity duration-300 group-hover:bg-opacity-10"></div>
-      </div>
+          {/* Navigation Arrows */}
+          <button
+            onClick={prevSlide}
+            className="absolute left-4 sm:left-8 md:left-12 top-1/2 -translate-y-1/2 text-black bg-transparent rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl z-20"
+            aria-label="Previous slide"
+          >
+            ‹
+          </button>
+          <button
+            onClick={nextSlide}
+            className="absolute right-4 sm:right-8 md:right-12 top-1/2 -translate-y-1/2 text-black bg-transparent rounded-full w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 flex items-center justify-center text-2xl sm:text-3xl md:text-4xl z-20"
+            aria-label="Next slide"
+          >
+            ›
+          </button>
+        </div>
 
-      {/* Color Name */}
-      <div className="text-center w-full">
-        <h3 className="text-sm font-medium text-gray-900 tracking-wider">{tile.name}</h3>
+        {/* Navigation Dots */}
+        <div className="w-full flex justify-center items-center space-x-4 py-2">
+          {colorTiles.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => goToSlide(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === activeIndex 
+                  ? "bg-black scale-110" 
+                  : "bg-gray-300 opacity-50 hover:opacity-70"
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-const ColorTileSlider = () => {
-  const sectionRef = useRef(null)
-  const [isMounted, setIsMounted] = useState(false)
-  const swiperRef = useRef(null)
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsMounted(true)
-      
-      if (sectionRef.current) {
-        sectionRef.current.style.opacity = 1;
-      }
-    }
-
-    return () => {
-      setIsMounted(false)
-    }
-  }, [])
-
-  return (
-    <section ref={sectionRef} className="py-16 bg-white">
-      <div className="max-w-[90%] mx-auto px-4 md:px-8">
-        {/* Swiper Container */}
-        {isMounted && (
-          <div className="relative">
-            <Swiper
-              ref={swiperRef}
-              modules={[FreeMode, Mousewheel, Autoplay]}
-              spaceBetween={24}
-              slidesPerView="auto"
-              freeMode={{
-                enabled: true,
-                sticky: false,
-                momentum: true,
-                momentumRatio: 0.9,
-                momentumVelocityRatio: 0.9,
-                minimumVelocity: 0.02,
-              }}
-              mousewheel={{
-                forceToAxis: true,
-                sensitivity: 1,
-                releaseOnEdges: true,
-              }}
-              autoplay={{
-                delay: 2800,
-                disableOnInteraction: false,
-                pauseOnMouseEnter: true,
-                waitForTransition: true,
-              }}
-              speed={1000} // Back to original slower, smoother speed
-              loop={true}
-              loopAdditionalSlides={colorTiles.length * 3} // Tripling for smoother looping
-              loopFillGroupWithBlank={false}
-              centeredSlides={false}
-              grabCursor={true}
-              cssMode={false}
-              className="!overflow-visible"
-              breakpoints={{
-                0: {
-                  slidesPerView: 1.3,
-                  spaceBetween: 16,
-                },
-                480: {
-                  slidesPerView: 2.3,
-                  spaceBetween: 16,
-                },
-                768: {
-                  slidesPerView: 3.3,
-                  spaceBetween: 20,
-                },
-                1024: {
-                  slidesPerView: 4.3,
-                  spaceBetween: 20,
-                },
-                1280: {
-                  slidesPerView: 5.3,
-                  spaceBetween: 24,
-                },
-              }}
-              preventClicks={false}
-              preventClicksPropagation={false}
-              simulateTouch={true}
-              touchRatio={1}
-              touchAngle={45}
-              effect="slide"
-              watchOverflow={true}
-              observer={true}
-              observeParents={true}
-              resizeObserver={true}
-              roundLengths={true}
-              updateOnWindowResize={true}
-              watchSlidesProgress={true}
-            >
-              {/* Create a very large array of slides to make looping smoother */}
-              {Array(3).fill(colorTiles).flat().map((tile, index) => (
-                <SwiperSlide 
-                  key={`${tile.id}-${index}`} 
-                  className="!w-auto !h-auto flex justify-center"
-                  style={{ width: "190px" }}
-                >
-                  <ColorTile tile={tile} />
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-        )}
-      </div>
-    </section>
-  )
-}
-
-export default ColorTileSlider
+export default ColorTileCarousel;

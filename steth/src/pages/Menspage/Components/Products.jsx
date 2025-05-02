@@ -104,9 +104,9 @@ export default function ProductPage() {
 
   // Filter options (would normally come from API)
   const filterOptions = {
-    color: ["All", "Black", "White", "Grey", "Navy", "Graphite"],
-    size: ["All", "7", "7.5", "8", "8.5", "9", "9.5", "10", "10.5", "11", "11.5", "12"],
-    style: ["All", "Running", "Casual", "Athletic", "Lifestyle"],
+    color: ["All", "Black", "White", "Grey", "Navy", "Maroon"],
+    size: ["All", "Extra Small","Small", "Medium","Large","Extra Large"],
+    style: ["All", "Classic"],
   }
 
   // Refs for GSAP animations
@@ -150,7 +150,7 @@ export default function ProductPage() {
   return (
     <div className={`mx-auto px-4 lg:px-20 py-8 w-full `}>
       {/* Heading */}
-      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-black px-4">All Products</h1>
+      <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold mb-6 text-black px-4">Accesories</h1>
 
       {/* Filter section */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b pb-4">

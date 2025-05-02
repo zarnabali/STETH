@@ -195,7 +195,7 @@ const Hero = () => {
           </div>
           <p 
             ref={descRef} 
-            className="text-base sm:text-lg text-gray-300 mt-5 md:text-xl lg:text-xl max-w-2xl mx-auto mb-6 sm:mb-8 md:mb-12  leading-relaxed px-2 sm:px-4 drop-shadow-md"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-6 sm:mb-8 md:mb-12 text-white leading-relaxed px-2 sm:px-4 drop-shadow-mdtext-base sm:text-lg md:text-xl lg:text-2xl max-w-2xl mx-auto mb-6 sm:mb-8 md:mb-12 text-white leading-relaxed px-2 sm:px-4 drop-shadow-md mt-5"
           >
             For doctors, by doctors
           </p>

@@ -5,7 +5,7 @@ import Hero from './Components/Hero';
 import WomenBestSellers from './Components/WomenBestSellers';
 import ProductPage from './Components/Products';
 import RewardsCTA from '../../components/DiscountOffers';
-import NewsletterSignup from '../../components/ContactUs';
+import NewsletterSignup from '../../components/NewsletterSignup';
 import AwsomeHumansFooter from '../../components/Footer';
 
 

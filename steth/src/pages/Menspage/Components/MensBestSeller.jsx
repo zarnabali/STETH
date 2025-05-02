@@ -239,7 +239,7 @@ const MenBestSellers = () => {
       <div className="max-w-[90%] mx-auto px-4 md:px-8">
         {/* Title */}
         <h2 className="text-2xl md:text-3xl font-bold text-black mb-8">
-          Men's Best Sellers
+          Men's 
         </h2>
 
         {/* Swiper Container */}

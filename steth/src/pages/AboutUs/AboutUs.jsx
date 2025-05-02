@@ -20,7 +20,7 @@ const AboutUs = () => {
       <CoreValues />
       <TeamSection />
       <Contact />
-      <CTA />
+      
       <Footer/>
     </div>
   )
@@ -140,16 +140,19 @@ const OurStory = () => {
           <div>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900">Our Story</h2>
             <p className="mt-4 text-base md:text-lg lg:text-xl text-gray-500">
-              STETH was founded in 2018 by a team of healthcare professionals who were frustrated with the
-              uncomfortable, poorly designed medical wear available on the market.
+            Steth was born in the hallways of hospitals, the quiet corners of on-call rooms, and the never-ending rhythm of 24-hour shifts. As doctors, we lived it all - the back-to-back patients, the emotional highs and lows, and the long hours spent in scrubs that never felt quite right.
+            We knew what was missing.
+            </p>
+              <p className="mt-4 text-base md:text-lg lg:text-xl text-gray-500">
+              Most medical apparel felt like an afterthought - uncomfortable fabrics, awkward fits, and zero personality. So we decided to do something about it.
+              Steth is a brand crafted by doctors, for doctors - created with one clear mission: to craft high-quality medical apparel that actually works for the people who wear it every day.
+              We obsess over details: the fit, the feel, and the function of the fabric that can live up to the prestige of the profession, every stitch designed to move with you, breathe with you, and support you through the longest shifts.
+              But Steth is more than just clothing. 
             </p>
             <p className="mt-4 text-base md:text-lg lg:text-xl text-gray-500">
-              Named after the stethoscope—an essential tool in medicine—STETH represents our commitment to becoming an
-              essential part of healthcare professionals' daily lives through thoughtfully designed medical wear.
-            </p>
-            <p className="mt-4 text-base md:text-lg lg:text-xl text-gray-500">
-              Today, STETH is trusted by thousands of healthcare professionals across hospitals, clinics, and private
-              practices who value our commitment to quality, comfort, and professional appearance.
+            It's a community. A shared belief that what you wear at work should empower you, not slow you down. We believe comfort and style aren't luxuries - they're essentials for those who give their all, every single day.
+              We're proud to stand behind the professionals who show up, suit up, and never give up.
+              Welcome to Steth. You deserve to feel your best while you give your best.
             </p>
           </div>
           <div className="mt-10 lg:mt-0">
@@ -261,7 +264,7 @@ const CoreValues = () => {
               <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-gray-200 flex items-center justify-center mb-4 md:mb-6 text-xl md:text-2xl">
                 <span className="text-black text-2xl md:text-3xl">{value.icon}</span>
               </div>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-bold mb-2 md:mb-3">{value.title}</h3>
+              <h3 className="text-xl md:text-2xl lg:text-3xl text-black font-bold mb-2 md:mb-3">{value.title}</h3>
               <p className="text-gray-600 text-sm md:text-base lg:text-lg">{value.description}</p>
             </div>
           ))}
@@ -439,10 +442,7 @@ const Contact = () => {
             </p>
 
             <div className="mt-8 space-y-6">
-              <div className="contact-info flex items-center">
-                <MapPin className="h-6 w-6 text-black" />
-                <span className="ml-3 text-sm md:text-base lg:text-lg text-gray-500">1250 Medical Center Drive, Suite 300, Chicago, IL 60601</span>
-              </div>
+              
               <div className="contact-info flex items-center">
                 <Mail className="h-6 w-6 text-black" />
                 <span className="ml-3 text-sm md:text-base lg:text-lg text-gray-500">contact@stethwear.com</span>
@@ -451,10 +451,7 @@ const Contact = () => {
                 <Phone className="h-6 w-6 text-black" />
                 <span className="ml-3 text-sm md:text-base lg:text-lg text-gray-500">+1 (800) 555-STETH</span>
               </div>
-              <div className="contact-info flex items-center">
-                <Clock className="h-6 w-6 text-black" />
-                <span className="ml-3 text-sm md:text-base lg:text-lg text-gray-500">Monday-Friday: 9AM-5PM CST</span>
-              </div>
+              
             </div>
           </div>
 

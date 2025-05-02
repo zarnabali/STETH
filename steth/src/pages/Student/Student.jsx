@@ -484,7 +484,7 @@ export default function StudentVerification() {
                           type="email"
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
-                          className="block w-full pl-10 pr-3 py-2 md:py-3 text-sm md:text-base border border-gray-300 bg-white rounded-md shadow-sm focus:ring-black focus:border-black"
+                          className="block w-full pl-10 pr-3 py-2 md:py-3 text-black text-sm md:text-base border border-gray-300 bg-white rounded-md shadow-sm focus:ring-black focus:border-black"
                           placeholder="you@example.com"
                           required
                         />
@@ -514,7 +514,7 @@ export default function StudentVerification() {
                           type={showPassword ? "text" : "password"}
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
-                          className="block w-full pl-10 pr-10 py-2 text-black md:py-3 text-sm md:text-base border bg-white border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black"
+                          className="block w-full pl-10 text-black pr-10 py-2 text-black md:py-3 text-sm md:text-base border bg-white border-gray-300 rounded-md shadow-sm focus:ring-black focus:border-black"
                           placeholder="••••••••"
                           required
                         />
@@ -663,7 +663,7 @@ export default function StudentVerification() {
                             setErrors({ ...errors, fullName: "" })
                           }
                         }}
-                        className={`block w-full pl-10 pr-3 py-2 md:py-3 text-sm md:text-base border bg-white rounded-md shadow-sm focus:ring-black focus:border-black ${
+                        className={`block w-full pl-10 pr-3 py-2 md:py-3 text-black text-sm md:text-base border bg-white rounded-md shadow-sm focus:ring-black focus:border-black ${
                           errors.fullName ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="John Doe"
@@ -691,7 +691,7 @@ export default function StudentVerification() {
                             setErrors({ ...errors, rollNumber: "" })
                           }
                         }}
-                        className={`block w-full pl-10 pr-3 py-2 md:py-3 text-sm md:text-base border bg-white rounded-md shadow-sm focus:ring-black focus:border-black ${
+                        className={`block w-full pl-10 pr-3 py-2 text-black md:py-3 text-sm md:text-base border bg-white rounded-md shadow-sm focus:ring-black focus:border-black ${
                           errors.rollNumber ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="MED2023001"
@@ -719,7 +719,7 @@ export default function StudentVerification() {
                             setErrors({ ...errors, universityEmail: "" })
                           }
                         }}
-                        className={`block w-full pl-10 pr-3 py-2 md:py-3 text-sm md:text-base border bg-white rounded-md shadow-sm focus:ring-black focus:border-black ${
+                        className={`block w-full pl-10 text-black pr-3 py-2 md:py-3 text-sm md:text-base border bg-white rounded-md shadow-sm focus:ring-black focus:border-black ${
                           errors.universityEmail ? "border-red-500" : "border-gray-300"
                         }`}
                         placeholder="john.doe@university.edu"

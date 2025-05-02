@@ -24,6 +24,7 @@ const Header = ({ className = '', isLoggedIn = false }) => {
       document.body.style.overflow = 'auto';
     };
   }, []);
+  
   useEffect(() => {
     // Text Slider Animation
     const slider = sliderRef.current;
@@ -157,24 +158,23 @@ const Header = ({ className = '', isLoggedIn = false }) => {
 
   return (
     <>
-      
-      
       <header ref={headerRef} className={`w-full z-50 sticky top-0 ${className}`}>
         {/* Desktop Header */}
-        <div className="hidden md:flex items-center justify-between py-4 border-b bg-white shadow-md px-10">
-          <div className="flex items-center space-x-8">
+        <div className="hidden md:flex items-center justify-between py-4 border-b bg-white shadow-md px-4 md:px-6 lg:px-10">
+          <div className="flex items-center space-x-2">
             <a href="/" className="flex items-center" ref={logoRef}>
-              <img src={logo} alt="STETH Logo" className="h-20 w-auto ml-10" />
+              <img src={logo} alt="STETH Logo" className="h-12 md:h-16 lg:h-20 w-auto md:ml-4 lg:ml-10" />
+              <span className="text-lg md:text-xl lg:text-2xl font-bold ml-2 text-black hidden md:block">STETH</span>
             </a>
           </div>
           
-          {/* Center Navigation */}
-          <nav className="hidden lg:flex justify-center space-x-10 absolute left-1/2 transform -translate-x-1/2">
+          {/* Center Navigation - Responsive spacing */}
+          <nav className="hidden lg:flex justify-center space-x-4 xl:space-x-10 absolute left-1/2 transform -translate-x-1/2">
             {["Women", "Men", "Students", "About STETH"].map((item, index) => (
               <a 
                 key={item}
                 href={item === "About STETH" ? "/aboutus" : `/${item.toLowerCase().replace(" ", "-")}`} 
-                className="text-gray-700 hover:text-gray-900 transition-colors text-lg font-medium"
+                className="text-gray-700 hover:text-gray-900 transition-colors text-base md:text-md lg:text-lg font-medium px-1"
                 ref={(el) => (navItemsRef.current[index] = el)}
               >
                 {item}
@@ -182,15 +182,16 @@ const Header = ({ className = '', isLoggedIn = false }) => {
             ))}
           </nav>
           
-          <div className="flex items-center space-x-4 mr-10">
-            <div className="relative w-64" ref={searchRef}>
+          <div className="flex items-center space-x-2 md:space-x-3 lg:space-x-4 mr-2 md:mr-4 lg:mr-10">
+            {/* Dynamic search bar width based on screen size */}
+            <div className="relative w-20 md:w-28 lg:w-36 xl:w-44" ref={searchRef}>
               <input 
                 type="text" 
                 placeholder="Search" 
-                className="w-full px-4 py-2 pl-12 rounded-3xl bg-gray-200 border-gray-200 focus:border-navy-blue focus:outline-none transition-colors text-gray-700"
+                className="w-full px-2 md:px-3 w-20 md:w-28 lg:w-36 xl:w-44 lg:px-4 py-1 md:py-2 pl-8 md:pl-10 lg:pl-12 rounded-3xl bg-gray-200 border-gray-200 focus:border-navy-blue focus:outline-none transition-colors text-gray-700 text-sm md:text-base"
               />
               <svg 
-                className="absolute left-4 top-2.5 h-5 w-5 text-gray-400" 
+                className="absolute left-2 md:left-3 lg:left-4 top-1.5 md:top-2.5 h-4 md:h-5 w-4 md:w-5 text-gray-400" 
                 fill="none" 
                 stroke="currentColor" 
                 viewBox="0 0 24 24"
@@ -199,20 +200,20 @@ const Header = ({ className = '', isLoggedIn = false }) => {
               </svg>
             </div>
             
-            <div className="flex items-center space-x-4" ref={iconsRef}>
+            <div className="flex items-center space-x-3 md:space-x-4 lg:space-x-5" ref={iconsRef}>
               {isLoggedIn ? (
                 <a href="/profile" className="hover:text-gray-900 transition-colors">
-                  <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="h-5 md:h-6 w-5 md:w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
                 </a>
               ) : (
-                <a href="/login" className="px-4 py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-sm font-medium">
+                <a href="/login" className="px-3 md:px-4 py-1.5 md:py-2 bg-black text-white rounded-md hover:bg-gray-800 transition-colors text-xs md:text-sm font-medium">
                   Login
                 </a>
               )}
               <a href="/cart" className="hover:text-gray-900 transition-colors">
-                <svg className="h-6 w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="h-5 md:h-6 w-5 md:w-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                 </svg>
               </a>
@@ -220,7 +221,7 @@ const Header = ({ className = '', isLoggedIn = false }) => {
           </div>
         </div>
         
-        {/* Mobile Header */}
+        {/* Mobile Header - Keeping as is */}
         <div className="md:hidden flex items-center justify-between px-4 py-3 border-b bg-white">
           <button 
             onClick={toggleMenu} 
@@ -244,7 +245,7 @@ const Header = ({ className = '', isLoggedIn = false }) => {
           </div>
         </div>
         
-        {/* Mobile Menu Overlay - Simplified */}
+        {/* Mobile Menu Overlay - Keeping as is */}
         {isMenuOpen && (
           <div className="fixed inset-0 bg-white z-[9999]">
             {/* Top Navigation */}
@@ -299,7 +300,7 @@ const Header = ({ className = '', isLoggedIn = false }) => {
           </div>
         )}
         
-        {/* Mobile Search */}
+        {/* Mobile Search - Keeping as is */}
         <div className="md:hidden px-4 py-2 border-b bg-white">
           <div className="relative">
             <input 
@@ -319,24 +320,23 @@ const Header = ({ className = '', isLoggedIn = false }) => {
         </div>
       </header>
 
-
-      {/* Text Slider - Positioned at the top */}
+      {/* Text Slider - Responsive text size */}
       <div 
         ref={sliderRef} 
-        className="w-full bg-white text-white overflow-hidden h-8"
+        className="w-full bg-white text-white overflow-hidden h-6 md:h-7 lg:h-8"
       >
         <div className="slider-content flex whitespace-nowrap">
-          <div className="slider-item text-black flex-shrink-0 ml-10 mr-10  text-xs sm:text-sm font-medium py-2">
+          <div className="slider-item text-black flex-shrink-0 ml-4 md:ml-6 lg:ml-10 mr-4 md:mr-6 lg:mr-10 text-xs md:text-sm font-medium py-1 md:py-1.5 lg:py-2">
             Free delivery on orders over PKR 5000 
           </div>
-          <div className="slider-item text-white flex-shrink-0 ml-10 mr-10  text-xs sm:text-sm font-medium py-2">
+          <div className="slider-item text-white flex-shrink-0 ml-4 md:ml-6 lg:ml-10 mr-4 md:mr-6 lg:mr-10 text-xs md:text-sm font-medium py-1 md:py-1.5 lg:py-2">
             Free delivery on orders over PKR 5000 
           </div>
          
-          <div className="slider-item text-black flex-shrink-0 mr-10 ml-10 text-xs sm:text-sm font-medium py-2">
+          <div className="slider-item text-black flex-shrink-0 mr-4 md:mr-6 lg:mr-10 ml-4 md:ml-6 lg:ml-10 text-xs md:text-sm font-medium py-1 md:py-1.5 lg:py-2">
             Free delivery on orders over PKR 5000
           </div>
-          <div className="slider-item text-white flex-shrink-0 ml-10 mr-10  text-xs sm:text-sm font-medium py-2">
+          <div className="slider-item text-white flex-shrink-0 ml-4 md:ml-6 lg:ml-10 mr-4 md:mr-6 lg:mr-10 text-xs md:text-sm font-medium py-1 md:py-1.5 lg:py-2">
             Free delivery on orders over PKR 5000 
           </div>
         </div>
